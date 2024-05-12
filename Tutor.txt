@@ -1,0 +1,60 @@
+Mikrotik :
+- Hostname setup 
+  #system identity set name=R1
+
+- User setup
+  #user add name=tkj  group=full password=jaringan
+
+- Ip address add interface
+  ip address add address=address/prefix interface=interface
+  #ip address add address=192.168.100.1/24 interface=ether2
+
+- Add New Vlan
+  #interface vlan add interface=ether2 vlan-id=100 name=vlan100
+
+- Add Vlan address
+  #ip address add interface=vlan100_vpc4 address=192.168.4.1/28
+
+- Add DNS Server
+  #ip dns set servers=8.8.8.8
+
+- Add IP Firewal & NAT
+  #ip firewall nat chain=srcnat out-interface=ether1 action=masquerade
+
+- Set DHCP Servers
+  #ip dhcp-server setup
+
+- Add ospf interface
+  #routing ospf interface add interface=ether1
+
+- Add ospf network
+  #routing ospf network add network=10.1.x.0/30 area=backbone
+
+Cisco SW:
+- Hostname setup
+  #hostname Switch1
+
+- Add interface address
+  #interface Ethernet0/1
+  #ip address 192.168.1.1 255.255.255.0
+  #no shutdown
+
+- Add new vlan 
+  #interface vlan 200
+
+- Set Interface Mode Trunk
+  #interface g0/0
+  #switchport trunk encapsulation dot1q
+  #switchport mode trunk
+
+- Set Interface Mode Access
+  #interface g0/2
+  #switchport mode access
+  #switchport access vlan 100
+
+- Add dhcp pool 
+  #ip dhcp pool vpool200
+  #network 192.168.5.0 255.255.255.240
+  #default-router 192.168.5.1
+  #dns-server 8.8.8.8
+
